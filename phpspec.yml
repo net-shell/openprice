@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: OpenPrice
+        psr4_prefix: OpenPrice
+        src_path: app
