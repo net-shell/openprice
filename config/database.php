@@ -11,7 +11,9 @@ return [
 		'neo4j' => [
 			'driver'   => 'neo4j',
 			'host'   => 'localhost',
-			'port'   => '7474'
+			'port'   => '7474',
+			'username' => env(DB_USERNAME, null),
+			'password' => env(DB_PASSWORD, null)
 		],
 
 	],
