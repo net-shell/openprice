@@ -19,7 +19,7 @@ app.controller('StoresController', function ($scope, API) {
 		$scope.$parent.selectedStore = store
 	}
 	
-	$scope.add = function(){ $('#add_modal').modal('show') }
+	$scope.add = function(){ $('#modalAdd').modal('show') }
 })
 
 app.controller('AddController', function ($scope, API) {
@@ -27,7 +27,7 @@ app.controller('AddController', function ($scope, API) {
 	$scope.add = function(){
 		API.all('product').post($scope.model).then(function(response) {
 			if(response.error) $scope.error = response.error
-			else $('#add_modal').modal('hide')
+			else $('#modalAdd').modal('hide')
 		})
 	}
 })
@@ -50,40 +50,39 @@ app.controller('ProductsController', function ($scope, API, Cassidi) {
 		$scope.$parent.selectedProducts = [product]
 	}
 
-	// Swag & stuff
-	// This object is unique to each store
-	var swag = {
-		price: {
-			selector: '.pricelabel:first',
-			callback: function(e){ return parseFloat(e.text()) }
-		},
-		name: 'h1.brkword'
-	}
-	
 	function handleSwag(swag, product) {
 		if(Object.keys(swag).length) {
-			API.one('product', product.id).patch(swag)
+			API.one('product', product.id).patch(swag).then($scope.refresh)
 		}
 	}
 
 	$scope.test = function(product) {
-		Cassidi.steal(product.url, swag).then(function(S){ handleSwag(S, product) })
+		var t = Cassidi.steal(product.url)
+		if(t) t.then(function(S){ handleSwag(S, product) })
 	}
 
 	$scope.feartheredbtn = function() {
 		if($scope.products.length) {
-			Cassidi.queue = $scope.products
-			Cassidi.queueIndex = 0
-			runQueue()
+			Cassidi.queue($scope.products, handleSwag, function(){ alert('Done') })
 		}
 	}
 
-	function runQueue() {
-		if(Cassidi.queueIndex >= Cassidi.queue.length-1) return;
-		Cassidi.steal(Cassidi.queue[Cassidi.queueIndex].url, swag).then(function(S){
-			handleSwag(S, Cassidi.queue[Cassidi.queueIndex])
-			Cassidi.queueIndex++
-			runQueue()
-		})
+	$scope.prices = function(product){ $('#modalPrices').modal('show') }
+})
+
+app.controller('PricesController', function ($scope, API) {
+	$scope.chartConfig = {
+		options: {
+			chart: { zoomType: 'x' },
+			rangeSelector: { enabled: true },
+			navigator: { enabled: true }
+		},
+		useHighStocks: true,
+		series: $scope.chartSeries,
 	}
+
+	API.all('price').post({ products: [57,59] }).then(function(data) {
+		console.log(new Array(data))
+		$scope.chartConfig.series = data
+	});
 })

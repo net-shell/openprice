@@ -1,9 +1,5 @@
-<a class="active item">
-	Weekly <span class="ui label">213</span>
-</a>
-<a class="item">
-	Joystiq <span class="ui label">113</span>
-</a>
+<a class="active item" ui-sref="home">Home</a>
+<a class="item" ui-sref="me">Me</a>
 <div class="item">
 	<b>Archived Feeds</b>
 	<div class="menu">

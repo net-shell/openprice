@@ -17,8 +17,12 @@ $router->model('store', 'OpenPrice\Store');
 // HTTP API
 $router->group(['prefix' => 'api/v1', 'namespace' => 'API'], function()
 {
+	// Price
+	$this->controller('price', 'Price');
+
 	// Product
 	$this->resource('product', 'Product');
+	$this->get('product/{product}/prices', 'Product@prices');
 
 	// Store
 	$this->resource('store', 'Store');

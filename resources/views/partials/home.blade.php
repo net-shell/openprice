@@ -4,7 +4,7 @@
 			<i class="sidebar icon"></i>
 		</div>
 		<div class="ui right floated primary button" ng-click="add()">
-			<i class="plus icon"></i> Add Competitor
+			<i class="plus icon"></i> {{ trans('product.add') }}
 		</div>
 		<div class="ui secondary pointing filter menu">
 			<h1 class="ui header item">{{ trans('store.list.title') }}</h1>
@@ -50,20 +50,21 @@
 				</div>
 			</h2>
 
-			<div class="ui red icon button" ng-click="feartheredbtn()">
-				<i class="lab icon"></i>
-				The red button
+			<div class="ui red icon big button" ng-click="feartheredbtn()">
+				<i class="in cart icon"></i>
+				The Red Button
 			</div>
 
 			<div class="ui divider"></div>
 			<div class="ui very relaxed link list">
 				<div class="item" ng-class="{ 'active': product.selected }" ng-repeat="product in products" ng-click="select(product)">
 					<div class="left floated ui primary icon button" ng-click="test(product)">
-						<i class="lab icon"></i>
+						<i class="in cart icon"></i>
 					</div>
-					<a class="right floated ui icon button" href="@{{ product.url }}" target="_blank">
-						<i class="external icon"></i>
-					</a>
+					<a class="right floated ui icon button" href="@{{ product.url }}" target="_blank"><i class="external icon"></i></a>
+					<div class="right floated ui icon button" ng-click="prices(product)">
+						<i class="line chart icon"></i>
+					</div>
 					<div class="content">
 						<div class="header">
 							<a href="@{{ product.url }}" target="_blank">@{{ product.name }}</a>
@@ -73,7 +74,7 @@
 								@{{ product.latest_price.value }}
 							</span>
 							<span class="ui label">
-							@{{ product.latest_price.created_at | asDate | date: 'short' }}
+							@{{ product.latest_price.stored_at | asDate | date : 'short' : 'UTC' }}
 							</span>
 						</p>
 					</div>
@@ -82,9 +83,9 @@
 	</div>
 </div>
 
-{{-- Modals --}}
+{{-- Add Product Modal --}}
 
-<div id="add_modal" class="ui modal" ng-controller="AddController">
+<div id="modalAdd" class="ui modal" ng-controller="AddController">
 	<i class="close icon"></i>
 	<div class="header">
 		{{ trans('add competitor product') }}
@@ -111,5 +112,17 @@
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
+
+{{-- Price History Modal --}}
+
+<div id="modalPrices" class="ui modal" ng-controller="PricesController">
+	<i class="close icon"></i>
+	<div class="header">
+		@{{ product.name }}
+	</div>
+	<div class="content centered">
+		<highchart id="prices_chart" config="chartConfig" style="width: 950px;"></highchart>
 	</div>
 </div>

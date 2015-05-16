@@ -5,13 +5,17 @@ class Price extends Model {
 	protected $fillable = ['value'];
 
 	public $timestamps = false;
-
+	
+	public function getDates() {
+		return ['stored_at'];
+	}
+	
 	public static function boot()
 	{
 		parent::boot();
 
 		static::creating(function($model) {
-			$model->setCreatedAt($model->freshTimestamp());
+			$model->attributes['stored_at'] = time();
 		});
 	}
 

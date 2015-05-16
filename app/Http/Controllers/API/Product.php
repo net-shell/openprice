@@ -40,10 +40,10 @@ class Product extends Controller
 
 	public function update(Model $model, Request $request)
 	{
-		$input = $request->only(['name', 'price']);
-		$model->name = $input['name'];
-		if($input['price']) {
-			$value = (float)$input['price'];
+		$input = $request->only(['name', 'image']);
+		$model->fill($input);
+		if($request->has('price')) {
+			$value = (float)$request->input('price');
 			$priceModel = new PriceModel(compact('value'));
 			$priceModel->save();
 			$model->prices()->save($priceModel);
@@ -52,9 +52,13 @@ class Product extends Controller
 		return compact('success');
 	}
 
-	public function destroy($id)
+	public function prices(Model $model)
 	{
-		//
+		$prices = $model->prices()->select(['prices.stored_at', 'prices.value'])->get()->toArray();
+		$data = ['name' => $model->name, 'data' => []];
+		foreach ($prices as $price) {
+			$data['data'][] = [$price['prices.stored_at'] * 1000, $price['prices.value']];
+		}
+		return [$data];
 	}
-
 }

@@ -2,7 +2,7 @@
 
 class Product extends Model {
 	
-	protected $fillable = ['name', 'url'];
+	protected $guarded = ['id'];
 
 	public function store() {
 		return $this->belongsTo('OpenPrice\Store', 'SELLS');
