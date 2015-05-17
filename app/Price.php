@@ -1,5 +1,7 @@
 <?php namespace OpenPrice;
 
+use Carbon\Carbon;
+
 class Price extends Model {
 	
 	protected $fillable = ['value'];
@@ -9,7 +11,7 @@ class Price extends Model {
 	public function getDates() {
 		return ['stored_at'];
 	}
-	
+
 	public static function boot()
 	{
 		parent::boot();

@@ -1,28 +1,25 @@
-app.controller('AppController', function ($scope, API) {
-	$('.filter.menu .item').tab()
-	$('.ui.rating').rating({ clearable: true })
-	$('.ui.dropdown').dropdown()
-	$('.ui.sidebar').sidebar('attach events', '.launch.button')
-	
-	$scope.selectedStore = null;
+app.controller('CompetitorsController', function($scope, $rootScope) {
+	$scope.selectedStore = null
+	$rootScope.initUI()
 })
 
-app.controller('StoresController', function ($scope, API) {
+app.controller('StoresController', function($scope, API) {
 	API.all('store').getList().then(function(data){ $scope.stores = data })
 
-	$scope.select = function(store){
+	$scope.select = function(store) {
 		if(store) {
 			for(var s in $scope.stores) {
-				if($scope.stores[s]) $scope.stores[s].selected = $scope.stores[s] == store
+				if(!$scope.stores[s]) continue
+				$scope.stores[s].selected = $scope.stores[s] == store
 			}
 		}
 		$scope.$parent.selectedStore = store
 	}
-	
+
 	$scope.add = function(){ $('#modalAdd').modal('show') }
 })
 
-app.controller('AddController', function ($scope, API) {
+app.controller('AddController', function($scope, API) {
 	$scope.model = {}
 	$scope.add = function(){
 		API.all('product').post($scope.model).then(function(response) {
@@ -32,7 +29,7 @@ app.controller('AddController', function ($scope, API) {
 	}
 })
 
-app.controller('ProductsController', function ($scope, API, Cassidi) {
+app.controller('ProductsController', function($scope, API, Cassidi) {
 	$scope.refresh = function() {
 		if($scope.$parent.selectedStore) {
 			API.one('store', $scope.$parent.selectedStore.id).all('products').getList().then(function(data) { $scope.products = data })
@@ -70,7 +67,7 @@ app.controller('ProductsController', function ($scope, API, Cassidi) {
 	$scope.prices = function(product){ $('#modalPrices').modal('show') }
 })
 
-app.controller('PricesController', function ($scope, API) {
+app.controller('PricesController', function($scope, API) {
 	$scope.chartConfig = {
 		options: {
 			chart: { zoomType: 'x' },

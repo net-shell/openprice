@@ -1,12 +1,12 @@
-var app = angular.module('OpenPrice', ['restangular', 'ui.router', 'highcharts-ng']);
+var app = angular.module('OpenPrice', ['restangular', 'ui.router', 'highcharts-ng', 'angularMoment']);
 
 // Configuration
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 	$urlRouterProvider.otherwise('/')
 	$stateProvider
-		.state('home', {
+		.state('competitors', {
 			url: '/',
-			templateUrl: 'home.html',
+			templateUrl: 'competitors.html',
 		})
 		.state('me', {
 			url: 'me',
@@ -17,6 +17,15 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $http
 
 // Initial work
 app.run(function(Cassidi, $rootScope) {
+	$rootScope.initUI = function() {
+		// Semantic UI initialization
+		$('.ui.rating').rating({ clearable: true })
+		$('.ui.dropdown').dropdown()
+		$('.ui.sticky').sticky()
+		$('.ui.sidebar').sidebar('attach events', '.launch.button')
+	}
+
+	// Steal a haiku. The irony...
 	Cassidi.steal('http://www.randomhaiku.com')
 		.then(function(swag){ $rootScope.haiku = swag.haiku })
 })
@@ -24,6 +33,16 @@ app.run(function(Cassidi, $rootScope) {
 // OpenPrice API
 app.factory('API', function(Restangular) {
 	return Restangular.setBaseUrl('api/v1')
+})
+
+// Charts
+app.factory('Charts', function($http) {
+	return {
+		series: [],
+		setSeries: function(series) {
+			this.series = series
+		}
+	}
 })
 
 // Blueprints for data shmekeri
@@ -62,10 +81,6 @@ app.constant('CassidiBlueprints', {
 		}
 	},
 	'randomhaiku.com': { haiku: '.line' }
-})
-
-// 
-app.factory('Charts', function($http) {
 })
 
 // Butch Cassidy

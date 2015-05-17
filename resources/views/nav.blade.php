@@ -1,7 +1,18 @@
-<a class="active item" ui-sref="home">Home</a>
-<a class="item" ui-sref="me">Me</a>
 <div class="item">
-	<b>Archived Feeds</b>
+	<h2>
+		<i class="lab icon"></i> OpenPrice
+		<span style="color: orange;">&alpha;</span>
+	</h2>
+</div>
+<div class="item" ui-sref="me">
+	<a class="ui logo icon image">
+		<img class="ui avatar image" src="http://www.wyomingtalesandtrails.com/cassidyprison.jpg">
+	</a>
+	Butch Cassidy
+</div>
+<div class="active item" ui-sref="competitors">My Competitors</div>
+<div class="item">
+	<b>My Stores</b>
 	<div class="menu">
 		<a class="item">
 		Engadget <span class="ui label">11</span>
