@@ -9,25 +9,18 @@
 
 {{-- Stylesheets --}}
 <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.2/semantic.min.css" rel="stylesheet">
+<link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.6/animate.min.css" rel="stylesheet">
 <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
 </head>
 <body ng-app="OpenPrice">
-
-{{-- Dimmer --}}
-<div class="ui inverted dimmer active" ng-class="{false: 'active', true: 'disabled'}[!loading]">
-	<div class="ui text loader">
-		<div ng-if="!haiku">please wait :)</div>
-		<div ng-repeat="line in haiku">@{{ line }}</div>
-	</div>
-</div>
 
 {{-- Sidebar --}}
 <div class="ui large inverted vertical visible sidebar menu left">
 	@include('nav')
 </div>
 
-{{-- Main View --}}
+{{-- Content --}}
 <div class="pusher" ui-view></div>
 
 {{-- Scripts --}}
@@ -36,6 +29,7 @@
 {{-- Angular JS --}}
 <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.14/angular-ui-router.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-animate.min.js"></script>
 {{-- RestAngular --}}
 <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/restangular/1.5.1/restangular.min.js"></script>

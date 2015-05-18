@@ -1,4 +1,4 @@
-var app = angular.module('OpenPrice', ['restangular', 'ui.router', 'highcharts-ng', 'angularMoment']);
+var app = angular.module('OpenPrice', ['restangular', 'ui.router', 'highcharts-ng', 'angularMoment', 'ngAnimate']);
 
 // Configuration
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
@@ -8,9 +8,9 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider, $http
 			url: '/',
 			templateUrl: 'competitors.html',
 		})
-		.state('me', {
-			url: 'me',
-			templateUrl: 'me.html',
+		.state('stores', {
+			url: 'stores',
+			templateUrl: 'mystores.html',
 		})
 	$httpProvider.interceptors.push('uiInterceptor');
 })

@@ -54,7 +54,7 @@ class Product extends Controller
 
 	public function prices(Model $model)
 	{
-		$prices = $model->prices()->select(['prices.stored_at', 'prices.value'])->get()->toArray();
+		$prices = $model->prices()->select(['prices.stored_at', 'prices.value'])->orderBy('prices.stored_at', 'asc')->get()->toArray();
 		$data = ['name' => $model->name, 'data' => []];
 		foreach ($prices as $price) {
 			$data['data'][] = [$price['prices.stored_at'] * 1000, $price['prices.value']];

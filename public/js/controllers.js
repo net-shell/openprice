@@ -83,3 +83,29 @@ app.controller('PricesController', function($scope, API) {
 		$scope.chartConfig.series = data
 	});
 })
+
+
+app.controller('RelationsController', function($scope, $rootScope) {
+	$rootScope.initUI()
+	$scope.my = {}
+	if(!$scope.my.selectedStore) $('.store.selection').dropdown('show')
+})
+
+app.controller('MyStoresController', function($scope, API) {
+	API.one('user', 48).all('stores').getList().then(function(data){ $scope.stores = data })
+
+	$scope.select = function(store) {
+		$scope.$parent.my.store = store
+		$scope.refresh()
+	}
+
+	$scope.refresh = function() {
+		if(!$scope.$parent.my.store) return
+		var q = API.one('store', $scope.$parent.my.store.id).all('products')
+		if($scope.$parent.my.search && $scope.$parent.my.search.length) q = q.post({ search: $scope.$parent.my.search })
+		else q = q.getList()
+		q.then(function(data){ $scope.products = data })
+	}
+
+	$scope.$parent.$watch('my.search', $scope.refresh, true)
+})

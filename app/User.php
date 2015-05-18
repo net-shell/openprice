@@ -1,17 +1,17 @@
 <?php namespace OpenPrice;
 
 use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
+class User extends Model implements AuthenticatableContract {
 
-	use Authenticatable, CanResetPassword;
+	use Authenticatable;
 
-	protected $fillable = ['name', 'email', 'password'];
+	protected $guarded = ['id', 'remember_token'];
 
 	protected $hidden = ['password', 'remember_token'];
 
+	public function stores() {
+		return $this->hasMany('OpenPrice\Store', 'OWNS');
+	}
 }

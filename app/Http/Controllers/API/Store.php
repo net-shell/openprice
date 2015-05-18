@@ -7,19 +7,22 @@ use OpenPrice\Http\Controllers\Controller;
 
 class Store extends Controller
 {
-	// Relationships
-	public function products(Model $store)
+	public function products(Model $store, Request $request)
 	{
-		return $store->products()->with('latestPrice')->get();
+		$args = $request->only('search');
+		$q = $store->products()->with('latestPrice');
+		if($args['search']) {
+			$q = $q->where('products.name', $args['search']);
+		}
+		return $q->get();
 	}
 
-	// Resource
-	public function index()
+	public function getIndex()
 	{
 		return Model::all();
 	}
 
-	public function store(Request $request, Model $model)
+	public function postIndex(Request $request, Model $model)
 	{
 		$model->fill($request->only(['name', 'domain']));
 		$success = $model->save();

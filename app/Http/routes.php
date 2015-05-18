@@ -4,6 +4,9 @@ namespace OpenPrice;
 // Home
 $router->get('/', 'HomeController@index');
 
+// Welcome
+$router->get('/welcome', function(){ return view('welcome'); });
+
 // View Partials
 $router->get('{partial}.html', function($partial) { return view('partials/' . $partial); });
 
@@ -13,6 +16,7 @@ $router->model('currency', 'OpenPrice\Currency');
 $router->model('price', 'OpenPrice\Price');
 $router->model('product', 'OpenPrice\Product');
 $router->model('store', 'OpenPrice\Store');
+$router->model('user', 'OpenPrice\User');
 
 // HTTP API
 $router->group(['prefix' => 'api/v1', 'namespace' => 'API'], function()
@@ -25,6 +29,9 @@ $router->group(['prefix' => 'api/v1', 'namespace' => 'API'], function()
 	$this->get('product/{product}/prices', 'Product@prices');
 
 	// Store
-	$this->resource('store', 'Store');
-	$this->get('store/{store}/products', 'Store@products');
+	$this->any('store/{store}/products', 'Store@products');
+	$this->controller('store', 'Store');
+
+	// User
+	$this->controller('user/{user}', 'User');
 });

@@ -1,14 +1,43 @@
-<div class="ui divided two column padded grid" ng-controller="CompetitorsController">
-	<div class="left column" ng-controller="ProductsController">
-		<div class="ui left floated launch icon button">
-			<i class="sidebar icon"></i>
+<div class="ui divided padded grid" ng-controller="CompetitorsController">
+	<div class="six wide column" ng-controller="StoresController">
+		<header>
+			<a class="ui right floated button" ng-click="add()">
+				<i class="plus icon"></i> {{ trans('product.add') }}
+			</a>
+			<div class="header">
+				<span class="ui launch icon button">
+					<i class="sidebar icon"></i>
+				</span>
+				{{ trans('store.list.title') }}
+			</div>
+		</header>
+		<div class="ui very relaxed divided link list">
+			<a class="item" ng-class="{ 'disabled': store.selected }" ng-repeat="store in stores" ng-click="select(store)">
+				<img src="http://www.google.com/s2/favicons?domain=@{{ store.domain }}" class="ui top aligned bordered avatar image">
+				<div class="content">
+					<div class="header">@{{ store.name }}</div>
+					@{{ store.updated_at }}
+				</div>
+			</a>
 		</div>
+	</div>
+
+	<div class="ten wide column" ng-controller="ProductsController">
+		{{-- Dimmer --}}
+		<div class="ui inverted dimmer active" ng-class="{false: 'active', true: 'disabled'}[!loading]">
+			<div class="ui text loader">
+				<div ng-if="!haiku">please wait :)</div>
+				<div ng-repeat="line in haiku">@{{ line }}</div>
+			</div>
+		</div>
+
 		<div ng-if="!selectedStore">
 			<h2 style="clear: left;">
+				<i class="left arrow icon"></i>
 				Select a Competitor
-				<i class="right arrow icon"></i>
 			</h2>
 		</div>
+
 		<div ng-if="selectedStore">
 			<h2 class="ui header">
 				<img src="http://www.google.com/s2/favicons?domain=@{{ selectedStore.domain }}" class="ui bordered circular image">
@@ -47,23 +76,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<div class="right column" ng-controller="StoresController">
-		<div class="ui secondary pointing filter menu">
-			<h1 class="ui header item">{{ trans('store.list.title') }}</h1>
-			<a class="item" ng-click="add()">
-				<i class="plus icon"></i> {{ trans('product.add') }}
-			</a>
-		</div>
-		<div class="ui very relaxed animated divided link list">
-			<a class="item" ng-class="{ 'active': store.selected }" ng-repeat="store in stores" ng-click="select(store)">
-				<img src="http://www.google.com/s2/favicons?domain=@{{ store.domain }}" class="ui top aligned bordered avatar image">
-				<div class="content">
-					<div class="header">@{{ store.name }}</div>
-					@{{ store.updated_at }}
-				</div>
-			</a>
 		</div>
 	</div>
 </div>

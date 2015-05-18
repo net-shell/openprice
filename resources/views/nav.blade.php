@@ -10,26 +10,22 @@
 	</a>
 	Butch Cassidy
 </div>
-<div class="active item" ui-sref="competitors">My Competitors</div>
+<a class="item" ui-sref-active="active" ui-sref="competitors">My Competitors</a>
+<a class="item" ui-sref-active="active" ui-sref="stores">My Stores</a>
 <div class="item">
-	<b>My Stores</b>
 	<div class="menu">
 		<a class="item">
-		Engadget <span class="ui label">11</span>
+		ET Afrika OLX <span class="ui label">11</span>
 		</a>
 		<a class="item">
-		NY Times Tech Blog <span class="ui label">21</span>
+		ET Afrika Amazon <span class="ui label">21</span>
 		</a>
 	</div>
 </div>
 <a class="item">
-	<i class="bookmark icon"></i> Favorites
+	<i class="ui database icon"></i> Network
 </a>
-<div class="ui dropdown item" tabindex="0">
-	<i class="add icon"></i> New
-	<div class="menu" tabindex="-1">
-		<a class="item"><i class="rss icon"></i> Feed</a>
-		<a class="item"><i class="tag icon"></i> Tag</a>
-		<a class="item"><i class="folder icon"></i> Group</a>
-	</div>
+<div class="item">
+	<i class="info icon"></i>
+	Info
 </div>

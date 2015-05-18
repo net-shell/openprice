@@ -1,0 +1,15 @@
+anim.ng-enter {
+	-webkit-animation: fadeIn .3s;
+	-moz-animation: fadeIn .3s;
+	-ms-animation: fadeIn .3s;
+	animation: fadeIn .3s;
+}
+anim.ng-leave {
+	-webkit-animation: fadeOut .3s;
+	-moz-animation: fadeOut .3s;
+	-ms-animation: fadeOut .3s;
+	animation: fadeOut .3s;
+}
+header {
+	padding-bottom: 1em;
+}
