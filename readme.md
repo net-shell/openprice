@@ -1,27 +1,56 @@
-## Laravel PHP Framework
+# OpenPrice
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+OpenPrice is a modern tool for financial data scraping (i.e. price comparison).
+It utilizes cutting edge frameworks and approaches for best performance, security and looks.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+## Data Scraping
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+### Client-side (Butch Cassidy)
+`Cassidy` is an AngularJS service that we wrote to use for data scraping from a domain-based config.
 
-## Official Documentation
+#### Configuration
+An example config entry looks like this:
+```
+myNgApp.constant('CassidiBlueprints', {
+  'ebay.com': {
+  	price: {
+  		selector: '#prcIsum',
+  		callback: function(e){ return parseFloat(e.text().replace(/[^\d.]/g, '')) }
+  	},
+  	name: '#itemTitle',
+  	image: {
+  		selector: '#icImg',
+  		callback: function(e){ return e.attr('src') }
+  	}
+  }
+});
+```
+So, basically you have two options when adding a new key to be parsed. You either set its value to a string [jQuery] selector and the contained text will be returned, or you set it to an object with `selector` and `callback` keys. The latter is a callback which is passed each element (as a jQuery object) matching the selector. The callback should then return the string of interest.
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+#### Usage
+Once there is a config for a domain the data can be scraped. It couldn't be simpler:
+```
+Cassidi.steal(url).then(function(swag){ console.log(swag.price); });
+```
 
-## Contributing
+Of course, usually you'd want to run multiple (possibly hundreds or even thousands) of scrape operations in a non-UI-blocking manner. It is just as simple to do it, as scraping a single URL:
+```
+Cassidi.queue([url1, url2], function(swag){ console.log(swag.price); }, function(){ alert('Done'); });
+```
+Cool, right? It's pretty self-explanatory, but for the sake of clarity:
+The first argument is an array of URLs. The second is an optional function which will be used as a callback for each processed URL.
+The third argument is an optional final callback, i.e. a simple function to be run when all URLs have been processed.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+## Server-side (Sundance Kid)
+`Sundance` is a lightweight Lumen piece of code that runs scraping queues in a cloud or shared environment. It's designed to be stackable and scalable.
+It's not yet ready.
+(TODO)
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-### License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+## Used Software
+* AngularJS
+* Semantic UI
+* jQuery
+* HighCharts/HighStock
+* Neo4j
+* Laravel 5
+* Lumen
