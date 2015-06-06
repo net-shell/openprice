@@ -2,6 +2,8 @@
 
 return [
 
+	'title' => 'OpenPrice',
+
 	'debug' => env('APP_DEBUG', false),
 
 	'url' => 'http://localhost',
