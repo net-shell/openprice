@@ -1,44 +1,12 @@
 // benchmark
 console.time('Initialized in')
 
-var express = require('express')
 var fs = require('fs')
 var request = require('request')
 var cheerio = require('cheerio')
-var env = require('node-env-file')
-var neo4j = require('neo4j-js')
 
 // benchmark
 console.timeEnd('Initialized in')
-
-env(__dirname + '/../.env')
-var neo4jURL = 'http://';
-neo4jURL += (process.env.DB_HOST || 'localhost')
-neo4jURL += ':' + (process.env.DB_PORT || 7474)
-neo4jURL += '/db/data/'
-
-console.time('NEO4J');
-
-neo4j.connect(neo4jURL, function(err, graph) {
-	if(err) throw err;
-	var q = 'match (n:OpenPriceProduct) return n'
-	graph.query(q, null, function(err, results) {
-		 if(err) {
-			console.log(err);
-			console.log(err.stack);
-		}
-		else {
-			for(var i = 0; i < results.length; i++) {
-				var node = results[i].n;
-				console.log(node.data.name, node.data.updated_at)
-			}
-		}
-	})
-})
-
-console.timeEnd('NEO4J');
-
-//return
 
 // benchmark
 console.time('>> (sc)raped in')

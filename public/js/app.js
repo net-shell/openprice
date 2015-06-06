@@ -264,3 +264,8 @@ app.factory('uiInterceptor', function($q, $rootScope) {
 app.filter('asDate', function() {
 	return function(input) { return new Date(input) }
 })
+
+// Price filter
+app.filter('price', function() {
+	return function(price) { return price.value + ' EUR' }
+})

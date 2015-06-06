@@ -10,22 +10,6 @@
 	</a>
 	Butch Cassidy
 </div>
-<a class="item" ui-sref-active="active" ui-sref="competitors">My Competitors</a>
 <a class="item" ui-sref-active="active" ui-sref="stores">My Stores</a>
-<div class="item">
-	<div class="menu">
-		<a class="item">
-		ET Afrika OLX <span class="ui label">11</span>
-		</a>
-		<a class="item">
-		ET Afrika Amazon <span class="ui label">21</span>
-		</a>
-	</div>
-</div>
-<a class="item">
-	<i class="ui database icon"></i> Network
-</a>
-<div class="item">
-	<i class="info icon"></i>
-	Info
-</div>
+<a class="item" ui-sref-active="active" ui-sref="competitors">My Competitors</a>
+<a class="item"><i class="ui database icon"></i> Queue</a>

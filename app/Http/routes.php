@@ -7,6 +7,9 @@ $router->get('/', 'HomeController@index');
 // Welcome
 $router->get('/welcome', function(){ return view('welcome'); });
 
+// Authentication
+$router->controller('auth', 'Auth\AuthController');
+
 // View Partials
 $router->get('{partial}.html', function($partial) { return view('partials/' . $partial); });
 

@@ -68,9 +68,7 @@
 							<a href="@{{ product.url }}" target="_blank">@{{ product.name }}</a>
 						</div>
 						<p ng-if="product.latest_price">
-							<span class="ui label">
-								@{{ product.latest_price.value }}
-							</span>
+							<span class="ui label" ng-bind="product.latest_price | price"></span>
 							<span am-time-ago="product.latest_price.stored_at"></span>
 						</p>
 					</div>

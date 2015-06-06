@@ -6,8 +6,10 @@
 	"author"		: "Ash",
 	"dependencies"	
 	:{
-		"express"	: "latest",
-		"request"	: "latest",
-		"cheerio"	: "latest"
+		"express"		: "latest",
+		"request"		: "latest",
+		"cheerio"		: "latest",
+		"neo4j-js"		: "latest",
+		"node-env-file"	: "latest"
 	}
 }

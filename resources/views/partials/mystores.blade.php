@@ -40,14 +40,14 @@
 			</div>
 			<div class="ui three column padded grid">
 				<div class="column" ng-repeat="product in products">
-					<div class="ui card">
+					<div class="ui card" ng-click="selectedProduct = product">
 						<div class="image">
 							<img src="@{{ product.image }}">
 						</div>
 						<div class="content">
 							<div class="header">
 								<span class="left">@{{ product.name }}</span>
-								<span class="ui right label">@{{ product.latest_price.value }}</span>
+								<span class="ui right label">@{{ product | price }}</span>
 							</div>
 							<div class="meta" am-time-ago="product.latest_price.stored_at"></div>
 						</div>
@@ -56,8 +56,23 @@
 			</div>
 		</div>
 	</div>
-	<div class="column" ng-controller="ProductsController">
-	mda
+	<div class="column">
+		<div ng-if="selectedProduct">
+			<div class="ui card">
+				<div class="image">
+					<img src="@{{ selectedProduct.image }}">
+				</div>
+				<div class="content">
+					<div class="header">
+						<span class="left">@{{ selectedProduct.name }}</span>
+						<span class="ui right label">@{{ selectedProduct.latest_price.value }}</span>
+					</div>
+					<div class="meta" am-time-ago="selectedProduct.latest_price.stored_at"></div>
+				</div>
+			</div>
+		</div>
+		<div ng-controller="ProductsController">
+		</div>
 	</div>
 </div>
 

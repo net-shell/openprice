@@ -9,10 +9,17 @@ class Store extends Controller
 {
 	public function products(Model $store, Request $request)
 	{
-		$args = $request->only('search');
+		$search = $request->input('search');
 		$q = $store->products()->with('latestPrice');
-		if($args['search']) {
-			$q = $q->where('products.name', $args['search']);
+		if($search) {
+			$search = trim($search);
+			if(strlen($search)) {
+				$search = str_replace('/', '\/', $search);
+				$search = preg_replace('/\s+/', ' ', $search);
+				$search = str_replace(' ', '.*', $search);
+				$search = '(?i).*' . $search . '.*';
+				$q = $q->where('products.name', '=~', $search);
+			}
 		}
 		return $q->get();
 	}
