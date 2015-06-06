@@ -56,6 +56,9 @@ It's designed to be stackable and scalable.
 ##### (Server) Queue
 (TODO)
 
+<img src="http://s27.postimg.org/wmjcshfyb/Screenshot_from_2015_06_06_23_36_59.png">
+<img src="http://s27.postimg.org/xnf03v7k3/Screenshot_from_2015_06_06_23_41_34.png">
+
 ## Used Software
 * Front-end
   * Semantic UI
