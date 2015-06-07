@@ -54,7 +54,11 @@ Cool, right? It's pretty self-explanatory, but for the sake of clarity:
 It's designed to be stackable and scalable.
 
 ##### (Server) Queue
-(TODO)
+The queue has a simple workflow:
+
+* `GET /api/v1/queue` returns a list of product IDs not related to recent (8h) prices and not related to a recently updated `:Promise`.
+* `GET /api/v1/lock/{product}` assigns the given product a new `:Promise` and returns its id
+* `POST /api/v1/lock/{promise}` adds the `value` parameter to the parent product's prices and deletes the promise on success (otherwise touches `updated_at`)
 
 <img src="http://s27.postimg.org/wmjcshfyb/Screenshot_from_2015_06_06_23_36_59.png">
 <img src="http://s27.postimg.org/xnf03v7k3/Screenshot_from_2015_06_06_23_41_34.png">

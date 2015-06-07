@@ -19,4 +19,8 @@ class Product extends Model {
 	public function crawl() {
 		return $this->belongsTo('OpenPrice\Crawl', 'CRAWLS');
 	}
+
+	public function queues() {
+		return $this->belongsToMany('OpenPrice\Queue', 'SCRAPES');
+	}
 }

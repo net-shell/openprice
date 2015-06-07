@@ -35,6 +35,9 @@ $router->group(['prefix' => 'api/v1', 'namespace' => 'API'], function()
 	$this->any('store/{store}/products', 'Store@products');
 	$this->controller('store', 'Store');
 
+	// Queue
+	$this->controller('queue', 'Queue');
+
 	// User
 	$this->controller('user/{user}', 'User');
 });
