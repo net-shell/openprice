@@ -54,7 +54,7 @@ Cool, right? It's pretty self-explanatory, but for the sake of clarity:
 It's designed to be stackable and scalable.
 
 ##### (Server) Queue
-The queue has a simple workflow:
+The queue has a simple workflow. Using the REST API the typical worker scenario looks like this:
 
 * `GET /api/v1/queue` returns a list of product IDs not related to recent (8h) prices and not related to a recently updated `:Promise`.
 * `GET /api/v1/lock/{product}` assigns the given product a new `:Promise` and returns its id
