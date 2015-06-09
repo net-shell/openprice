@@ -44,10 +44,12 @@ However, usually you'd want to run multiple (possibly hundreds or even thousands
 ```
 Cassidi.queue([url1, url2, ...], function(swag){ console.log(swag.price); }, function(){ alert('All done!'); })
 ```
-Cool, right? It's pretty self-explanatory, but for the sake of clarity:
+It's pretty self-explanatory, but for the sake of clarity:
 * The first argument is an array of URLs.
 * The second argument is an optional function which will be used as a `callback` for each processed URL.
 * The third argument is an optional final callback, i.e. a simple function to be run when all URLs have been processed.
+
+Usually you'd want to fetch a few items from the Queue REST API (see below) and run them in the `queue` method while fetching the next items.
 
 ## Server-side (Sundance Kid)
 `Sundance` is a lightweight NodeJS script that can run scraping queues on the server.
