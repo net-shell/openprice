@@ -69,6 +69,17 @@ app.constant('CassidiBlueprints', {
 			callback: function(e){ return e.attr('src') }
 		}
 	},
+	'spy.bg': {
+		price: {
+			selector: "[itemprop='price']",
+			callback: function(e){ return parseFloat(e.text().replace(/[^\d.]/g, '').trim()) }
+		},
+		name: "[itemprop='name']",
+		image: {
+			selector: "[itemprop='image']",
+			callback: function(e){ return e.attr('src') }
+		}
+	},
 	'ebay.com': {
 		price: {
 			selector: '#prcIsum',
@@ -119,25 +130,27 @@ app.factory('Cassidi', function($http, CassidiBlueprints, UTF8) {
 			if(!CassidiBlueprints[domain]) return console.error('BC doesnt have the blueprints for ' + domain)
 			var swag = CassidiBlueprints[domain]
 
-			ourl = 'http://anyorigin.com/get?url=' + encodeURIComponent(url) + '&callback=JSON_CALLBACK'
+			ourl = 'http://whateverorigin.org/get?url=' + encodeURIComponent(url) + '&callback=JSON_CALLBACK'
 			//
 			console.info('BC penetrates '+url)
 			var config = { headers: { 'Content-Type': 'application/json; charset=utf-8' } }
 			return $http.jsonp(ourl, config).then(function(response) {
 				if(response && response.data) {
 					//
-					console.info('BC left '+url+' like a boss')
+					console.info('BC left '+url+' like a boss with '+response.data.contents.length+' bytes of swag')
 					var html = response.data.contents
 					var parsed = {}
 					for(var s in swag) {
 						var selector = swag[s].selector ? swag[s].selector : swag[s]
 						var matched = $(html).find(selector)
-						var val = matched.length ? [] : false
+						var val = false
 						var valCb = swag[s].callback ? swag[s].callback : function(e){ return e.text().trim() }
+						console.log(matched.length)
 						if(matched.length) {
+							val = []
 							matched.each(function(){
 								var V = valCb($(this)) // call user function on collection
-								if(typeof V == 'string') V = UTF8.decode(V)
+								//if(typeof V == 'string') V = UTF8.decode(V)
 								val.push(V)
 							})
 							if(val.length == 1) val = val[0]
@@ -151,7 +164,7 @@ app.factory('Cassidi', function($http, CassidiBlueprints, UTF8) {
 					return parsed;
 				}
 				//
-				else console.error('BC fucked up BAD with '+url)
+				else console.error('BC fucked up BAD with '+url, response)
 			}) // end jsonp callback
 		} // end steal()
 	}

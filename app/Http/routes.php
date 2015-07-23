@@ -1,43 +1,43 @@
 <?php
-namespace OpenPrice;
-
-// Home
-$router->get('/', 'HomeController@index');
 
 // Welcome
-$router->get('/welcome', function(){ return view('welcome'); });
+Route::get('/welcome', function(){ return view('welcome'); });
 
 // Authentication
-$router->controller('auth', 'Auth\AuthController');
+Route::controller('auth', 'Auth\AuthController');
 
 // View Partials
-$router->get('{partial}.html', function($partial) { return view('partials/' . $partial); });
+Route::get('{partial}.html', function($partial) { return view('partials/' . $partial); });
 
 // Models
-$router->model('crawl', 'OpenPrice\Crawl');
-$router->model('currency', 'OpenPrice\Currency');
-$router->model('price', 'OpenPrice\Price');
-$router->model('product', 'OpenPrice\Product');
-$router->model('store', 'OpenPrice\Store');
-$router->model('user', 'OpenPrice\User');
+Route::model('crawl', 'OpenPrice\Crawl');
+Route::model('currency', 'OpenPrice\Currency');
+Route::model('price', 'OpenPrice\Price');
+Route::model('product', 'OpenPrice\Product');
+Route::model('store', 'OpenPrice\Store');
+Route::model('user', 'OpenPrice\User');
 
 // HTTP API
-$router->group(['prefix' => 'api/v1', 'namespace' => 'API'], function()
+Route::group(['prefix' => 'api/v1', 'namespace' => 'API'], function()
 {
 	// Price
-	$this->controller('price', 'Price');
+	Route::controller('price', 'Price');
 
 	// Product
-	$this->resource('product', 'Product');
-	$this->get('product/{product}/prices', 'Product@prices');
+	Route::resource('product', 'Product');
+	Route::get('product/{product}/prices', 'Product@prices');
 
 	// Store
-	$this->any('store/{store}/products', 'Store@products');
-	$this->controller('store', 'Store');
+	Route::any('store/{store}/products', 'Store@products');
+	Route::controller('store', 'Store');
 
 	// Queue
-	$this->controller('queue', 'Queue');
+	Route::controller('queue', 'Queue');
 
 	// User
-	$this->controller('user/{user}', 'User');
+	Route::controller('user/{user}', 'User');
 });
+
+
+// Home
+Route::get('/', 'HomeController@index');

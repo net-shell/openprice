@@ -3,7 +3,7 @@
 @section('content')
 <div class="header segment">
 	<div class="container">
-		<h1 class="ui header">OpenPrice</h1>
+		<h1 class="ui header">SpyPrice</h1>
 		<h2 class="ui header">Innovative online trader platform.</h2>
 	</div>
 </div>
@@ -67,7 +67,7 @@
 			Also, you can get paid!
 		</h2>
 		<p>
-			Become a part of the OpenPrice Network.
+			Become a part of the SpyPrice Network.
 			You can simply use our web app to get paid for processing others' requests.
 		</p>
 		<p>
@@ -84,7 +84,7 @@
 		<h2 class="ui header">
 			What's with all the free stuff?!
 		</h2>
-		<p>OpenPrice has an extremely small server footprint and it costs very little to run.</p>
+		<p>SpyPrice has an extremely small server footprint and it costs very little to run.</p>
 		<p>It would be a shame to charge anyone for using it.</p>
 	</div>
 </div>
@@ -125,13 +125,6 @@
 			<i class="circular orange lightning icon"></i>
 			Fast.
 		</h4>
-		<p>It's fast as fuck. I promise.</p>
-		
-		<h4 class="ui header">
-			<i class="circular orange code icon"></i>
-			Open-source.
-		</h4>
-		<p>Check out out <a href="https://github.com/net-shell/openprice" target="_blank">GitHub repository</a>.</p>
 		
 	</div>
 </div>

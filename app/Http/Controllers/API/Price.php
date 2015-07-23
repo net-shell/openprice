@@ -8,12 +8,13 @@ use OpenPrice\Store as StoreModel;
 
 class Price extends Controller
 {
-	public function postIndex(Request $request)
+	public function anyIndex(Request $request)
 	{
 		$products = $request->input('products');
 		$allPrices = [];
 		foreach ($products as $productId) {
 			$product = ProductModel::find($productId);
+			var_dump($productId, $product);
 			$prices = (new Product)->prices($product);
 			$allPrices = array_merge($allPrices, $prices);
 		}

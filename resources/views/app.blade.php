@@ -7,7 +7,7 @@
 <body ng-app="OpenPrice">
 
 	{{-- Sidebar --}}
-	<div class="ui large inverted vertical visible sidebar menu left">
+	<div class="ui large inverted vertical sidebar menu left">
 		@include('nav')
 	</div>
 

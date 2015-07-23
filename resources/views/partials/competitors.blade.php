@@ -1,5 +1,5 @@
-<div class="ui divided padded grid" ng-controller="CompetitorsController">
-	<div class="six wide column" ng-controller="StoresController">
+<div class="ui divided padded equal width grid" ng-controller="CompetitorsController">
+	<div class="column" ng-controller="StoresController">
 		<header>
 			<a class="ui right floated button" ng-click="add()">
 				<i class="plus icon"></i> {{ trans('product.add') }}
@@ -22,7 +22,7 @@
 		</div>
 	</div>
 
-	<div class="ten wide column" ng-controller="ProductsController">
+	<div class="column" ng-controller="ProductsController">
 		{{-- Dimmer --}}
 		<div class="ui inverted dimmer active" ng-class="{false: 'active', true: 'disabled'}[!loading]">
 			<div class="ui text loader">
@@ -49,7 +49,7 @@
 
 			<div class="ui orange icon button" ng-click="feartheredbtn()">
 				<i class="in cart icon"></i>
-				The Red Button
+				Enqueue all
 			</div>
 
 			<div class="ui divider"></div>

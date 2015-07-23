@@ -32,7 +32,7 @@ app.controller('AddController', function($scope, API) {
 app.controller('ProductsController', function($scope, API, Cassidi) {
 	$scope.refresh = function() {
 		if($scope.$parent.selectedStore) {
-			API.one('store', $scope.$parent.selectedStore.id).all('products').getList().then(function(data) { $scope.products = data })
+			API.one('store', $scope.$parent.selectedStore.id).all('products').getList().then(function(data) { $scope.products = data; })
 		}
 	}
 
@@ -48,7 +48,7 @@ app.controller('ProductsController', function($scope, API, Cassidi) {
 	}
 
 	function handleSwag(swag, product) {
-		if(Object.keys(swag).length) {
+		if(!!swag && Object.keys(swag).length) {
 			API.one('product', product.id).patch(swag).then($scope.refresh)
 		}
 	}

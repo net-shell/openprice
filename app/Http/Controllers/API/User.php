@@ -8,18 +8,15 @@ use OpenPrice\Store as StoreModel;
 
 class User extends Controller
 {
-	public function getIndex(Model $user)
-	{
+	public function getIndex(Model $user) {
 		return $user;
 	}
 
-	public function getStores(Model $user)
-	{
+	public function getStores(Model $user) {
 		return $user->stores;
 	}
 
-	public function getProducts(Model $user)
-	{
+	public function getProducts(Model $user) {
 		return $user->stores()->with('products')->get();
 	}
 }
