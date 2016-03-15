@@ -5,10 +5,21 @@ It utilizes cutting edge frameworks and approaches for best performance, securit
 
 ## JS Data Scraping
 
-This design approach allows for a broad range of processing units (pretty much anything from desktop browsers and VPS/cloud servers to mobile browsers and low-cost embedded servers) with virtually no limits to their number, concurrently scraping data for one hub (graph) database.
+This design approach allows for a broad range of processing units (pretty much anything from desktop browsers and VPS/cloud servers to mobile browsers and low-cost embedded servers) with virtually no limits to their number, concurrently scraping data for one distributed graph database.
 
-### Client-side (Butch Cassidy)
-`Cassidy` is an AngularJS service for data scraping with a domain-based parser configuration (or `Blueprints`).
+## The Stack
+* Front-end
+  * Semantic UI
+  * HighCharts/HighStock
+* Back-end: Laravel 5
+* Database: Neo4j
+* Cassidy: JavaScript 
+  * jQuery
+  * AngularJS
+* Sundance: NodeJS
+  * Express
+  * Request
+  * Cheerio
 
 #### Configuration
 An example config entry looks like this:
@@ -27,8 +38,11 @@ ngApp.constant('CassidiBlueprints', {
   }
 });
 ```
-There are two options when adding a new key for parsing. You either set its value to a string (jQuery selector) in which case the contained text will be returned; or you set it to an object with `selector` and `callback` keys.
-The callback is a function which is called for each selector match on every page and receives the jQuery element as the only argument. The callback must return a non-nil value for further processing or a 0-equiv value (false, null, etc.) in case of an error.
+There are two options when adding a new key for parsing.
+
+When the value is `string` it's treated as a DOM selector, in which case the contained text will be returned.
+
+That is a shorthand, otherwise the value has to be an object with `selector`, and `callback` keys. The callback is a function which is called for each match on every page and receives the jQuery element as sole argument. The callback must return a non-nil value for further processing or nil in case of any error. Data accuracy depends on that of the callback error reporting.
 
 #### Usage
 
@@ -51,6 +65,9 @@ It's pretty self-explanatory, but for the sake of clarity:
 
 Usually you'd want to fetch a few items from the Queue REST API (see below) and run them in the `queue` method while fetching the next items.
 
+### Client-side (Butch Cassidy)
+`Cassidy` is an AngularJS service for data scraping with a domain-based parser configuration (or `Blueprints`).
+
 ## Server-side (Sundance Kid)
 `Sundance` is a lightweight NodeJS script that can run scraping queues on the server.
 It's designed to be stackable and scalable.
@@ -64,17 +81,3 @@ The queue has a simple workflow. Using the REST API the typical worker scenario 
 
 <img src="http://s27.postimg.org/wmjcshfyb/Screenshot_from_2015_06_06_23_36_59.png">
 <img src="http://s27.postimg.org/xnf03v7k3/Screenshot_from_2015_06_06_23_41_34.png">
-
-## Used Software
-* Front-end
-  * Semantic UI
-  * HighCharts/HighStock
-* Back-end: Laravel 5
-* Database: Neo4j
-* Cassidy: JavaScript 
-  * jQuery
-  * AngularJS
-* Sundance: NodeJS
-  * Express
-  * Request
-  * Cheerio
