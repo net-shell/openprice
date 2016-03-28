@@ -1,13 +1,12 @@
 # OpenPrice
 
-OpenPrice is a modern platform for financial data scraping (i.e. for the purposes of price comparison and analytics).
-It utilizes cutting edge frameworks and approaches for best performance, security and looks.
+Web software for financial data scraping (i.e. for the purposes of price comparison, analytics, etc.) from online shops and the likes.
 
-## JS Data Scraping
+### Scraping with JavaScript
 
 This design approach allows for a broad range of processing units (pretty much anything from desktop browsers and VPS/cloud servers to mobile browsers and low-cost embedded servers) with virtually no limits to their number, concurrently scraping data for one distributed graph database.
 
-## The Stack
+### Stack
 * Front-end
   * Semantic UI
   * HighCharts/HighStock
@@ -16,12 +15,9 @@ This design approach allows for a broad range of processing units (pretty much a
 * Cassidy: JavaScript 
   * jQuery
   * AngularJS
-* Sundance: NodeJS
-  * Express
-  * Request
-  * Cheerio
+* Sundance: NodeJS (Express)
 
-#### Configuration
+### Configuration
 An example config entry looks like this:
 ```
 ngApp.constant('CassidiBlueprints', {
@@ -42,18 +38,18 @@ There are two options when adding a new key for parsing.
 
 When the value is `string` it's treated as a DOM selector, in which case the contained text will be returned.
 
-That is a shorthand, otherwise the value has to be an object with `selector`, and `callback` keys. The callback is a function which is called for each match on every page and receives the jQuery element as sole argument. The callback must return a non-nil value for further processing or nil in case of any error. Data accuracy depends on that of the callback error reporting.
+That is a shorthand of the full object with `selector`, and `callback` keys, where the latter is a function which is called for each match on every page and receives the jQuery element as sole argument. The callback must return a non-nil value for further processing or nil in case of an error. Data accuracy depends on proper callback error reporting.
 
-#### Usage
+### Usage
 
-##### Single URL
+#### Single URL
 Once there is a config for a given domain you can scrape URLs in it. With AngularJS it's as simple as:
 ```
 Cassidi.steal(url).then(function(swag){ if(swag) console.log(swag.price); })
 ```
 The `steal` method returns an Angular Promise which is later ("asynchronously") called. The closure for the promise receives an object as a sole argument which has the same keys as the parser for that domain. Each key is either a parse result value or `false`. In case all keys have failed to parse boolean `false` is passed instead of an object (so be sure to check for that).
 
-##### (Client) Queue
+#### (Client) Queue
 However, usually you'd want to run multiple (possibly hundreds or even thousands) of scrape operations in a non-UI-blocking manner. That is the purpose of the `queue` method:
 ```
 Cassidi.queue([url1, url2, ...], function(swag){ console.log(swag.price); }, function(){ alert('All done!'); })
@@ -68,11 +64,11 @@ Usually you'd want to fetch a few items from the Queue REST API (see below) and 
 ### Client-side (Butch Cassidy)
 `Cassidy` is an AngularJS service for data scraping with a domain-based parser configuration (or `Blueprints`).
 
-## Server-side (Sundance Kid)
+### Server-side (Sundance Kid)
 `Sundance` is a lightweight NodeJS script that can run scraping queues on the server.
 It's designed to be stackable and scalable.
 
-##### (Server) Queue
+### Queue
 The queue has a simple workflow. Using the REST API the typical worker scenario looks like this:
 
 * `GET /api/v1/queue` returns a list of product IDs not related to recent (8h) prices and not related to a recently updated `:Promise`.
